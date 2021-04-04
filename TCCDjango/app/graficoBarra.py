@@ -50,10 +50,11 @@ class GraficoBarra():
         return fig
 
     def PlotGraficoBarraCalor():
-        dfFinal = BuildDf.DataFrameMensal()
-        px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
-               size="Casos", color="Regiao", hover_name="País",
-               log_x=True, size_max=80, range_x=[1000,1000000], range_y=[10000,40000000])
+        dfFinal = BuildDf.DataFrameCasos()
+        dfFinal.query('TotalCases > 1000000', inplace=True)
+        fig = px.bar(dfFinal, x='Name', y='TotalRecovered',
+             hover_data=['TotalCases', 'TotalRecovered'], color='TotalCases',
+             labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Mar' : '1º Março'}, height=400)
         #fig.write_html("app/graph.html")
         #pl.offline.plot(fig, filename = 'app/graph.html')
         return fig
@@ -65,15 +66,6 @@ class GraficoBarra():
 
         fig = px.bar(dfFinal, x='Name', y=perce, color='Continent', labels={'y':'% de Curados','TotalCases':'Total de Casos','Name' : 'País', 'TotalRecovered' : 'Total Recuperado'},
              hover_data=['Name'],   title='Porcentagem de curados x Total de casos')
-        #fig.write_html("app/graph.html")
-        #pl.offline.plot(fig, filename = 'app/graph.html')
-        return fig
-
-    def PlotGraficoScatterCasos():
-
-        fig = px.scatter(dfFinal, x="TotalCases", y="TotalRecovered", color="Name",
-                 size='TotalCases', hover_data=['TotalRecovered'],
-                 labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Mar' : '1º Março'})
         #fig.write_html("app/graph.html")
         #pl.offline.plot(fig, filename = 'app/graph.html')
         return fig

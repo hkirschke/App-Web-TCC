@@ -37,6 +37,7 @@
     <Compile Include="app\DateUtil.py" />
     <Compile Include="app\forms.py" />
     <Compile Include="app\CreateDataFrame.py" />
+    <Compile Include="app\graficoScatter.py" />
     <Compile Include="app\graficoBarra.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\graficoLinhaTempo.py">

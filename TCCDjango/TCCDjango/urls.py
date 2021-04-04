@@ -29,4 +29,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('GraficoLTBar/', views.GraficoLTBar, name='GraficoLTBar'),
     path('GraficoLTScatter/', views.GraficoLTScatter, name='GraficoLTScatter'), 
+    path('GrafigoBarraMortePais/', views.GrafigoBarraMortePais, name='GrafigoBarraMortePais'), 
+    path('GrafigoBarraCasosPais/', views.GrafigoBarraCasosPais, name='GrafigoBarraCasosPais'), 
+    path('GrafigoBarraPorcentagemCurados/', views.GrafigoBarraPorcentagemCurados, name='GrafigoBarraPorcentagemCurados'), 
+    path('GrafigoBarraCalor/', views.GrafigoBarraCalor, name='GrafigoBarraCalor'),
+    path('GrafigoScatterCasos/', views.GrafigoScatterCasos, name='GrafigoScatterCasos'),
 ]
