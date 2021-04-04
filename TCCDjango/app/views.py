@@ -6,6 +6,8 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 from .graficoLinhaTempo import GraficoLT as graphLT
+from .graficoBarra import GraficoBarra as graphBar
+import plotly as pl 
 
 
 def home(request):
@@ -49,5 +51,28 @@ def about(request):
 
 def GraficoLTBar(request):
   assert isinstance(request, HttpRequest)
-  graphLT.PlotGraphTimeLineBar()
-  return render(request,'app/graph.html')
+  fig = graphLT.PlotGraphTimeLineBar()
+  fig.write_html("app/graph.html")
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GraficoLTScatter(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphLT.PlotGraphTimeLineScatter()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+

@@ -28,27 +28,52 @@ class GraficoBarra():
         # fig.update_layout(legend_title_text = "WHO Region")
        fig.update_xaxes(title_text="Países")
        fig.update_yaxes(title_text="Mortes D-1")
-       fig.write_html("app/graph.html")
-       pl.offline.plot(fig, filename = 'app/graph.html')
+       #fig.write_html("app/graph.html")
+       #pl.offline.plot(fig, filename = 'app/graph.html')
        #fig.show()
+       return fig
 
     def PlotGrafigoBarraCasosPais():
         # GRÁFICO 1.2
+        dfFinal = BuildDf.DataFrameCasos()
         fig = go.Figure()  
-        for contestant, group in df2.groupby("WHO Region"):
+        for contestant, group in dfFinal.groupby("WHO Region"):
             fig.add_trace(go.Bar(x=group["Name"], y=group["Cases - cumulative total"], name=contestant,
               hovertemplate="Continentes=%s<br>País=%%{x}<br>Total Casos=%%{y}<extra></extra>"% contestant))
         # fig.update_layout(legend_title_text = "WHO Region")
         fig.update_xaxes(title_text="Países")
         fig.update_yaxes(title_text="Total Casos")
         #fig.show()
-        fig.write_html("app/graph.html")
-        pl.offline.plot(fig, filename = 'app/graph.html')
+        #fig.write_html("app/graph.html")
+        #pl.offline.plot(fig, filename = 'app/graph.html')
         #pl.offline.plot(fig, include_plotlyjs=False, output_type='div')
+        return fig
 
     def PlotGraficoBarraCalor():
         dfFinal = BuildDf.DataFrameMensal()
         px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
                size="Casos", color="Regiao", hover_name="País",
                log_x=True, size_max=80, range_x=[1000,1000000], range_y=[10000,40000000])
-    
+        #fig.write_html("app/graph.html")
+        #pl.offline.plot(fig, filename = 'app/graph.html')
+        return fig
+
+    def PlotGraficoBarPorcentagemCurados():
+        dfFinal = BuildDf.DataFrameCasos()
+        perce = ((dfFinal['TotalRecovered'] / dfFinal['TotalCases']) *100)
+        # print(perce.to_string())
+
+        fig = px.bar(dfFinal, x='Name', y=perce, color='Continent', labels={'y':'% de Curados','TotalCases':'Total de Casos','Name' : 'País', 'TotalRecovered' : 'Total Recuperado'},
+             hover_data=['Name'],   title='Porcentagem de curados x Total de casos')
+        #fig.write_html("app/graph.html")
+        #pl.offline.plot(fig, filename = 'app/graph.html')
+        return fig
+
+    def PlotGraficoScatterCasos():
+
+        fig = px.scatter(dfFinal, x="TotalCases", y="TotalRecovered", color="Name",
+                 size='TotalCases', hover_data=['TotalRecovered'],
+                 labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Mar' : '1º Março'})
+        #fig.write_html("app/graph.html")
+        #pl.offline.plot(fig, filename = 'app/graph.html')
+        return fig

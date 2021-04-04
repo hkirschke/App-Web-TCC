@@ -1,16 +1,5 @@
 {% extends "app/layout.html" %}
 
-
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $.ajax({url: "demo_test.txt", success: function(result){
-      $("#div1").html(result);
-    }});
-  });
-});
-</script>
-
 {% block content %}
 
 <div class="jumbotron">
@@ -27,7 +16,10 @@ $(document).ready(function(){
             enables a clean separation of concerns and gives you full control over markup
             for enjoyable, agile development.
         </p>
-        <p><a class="btn btn-default" href="{% url 'GraficoLTBar' %}">Learn more &raquo;</a></p>
+        <p><a class="btn btn-large btn-primary " href="{% url 'GraficoLTBar' %}">GraficoLTBar &raquo;</a></p>
+        <p><a class="btn btn-large btn-primary " href="{% url 'GraficoLTScatter' %}">GraficoLTScatter &raquo;</a></p>
+        <button class="btn btn-large btn-primary clickMe" id="GraficoLTBar">Time Line Mensal Mortos x Casos</button>
+        <button id="3" class="btn btn-large btn-primary clickMe"> teste</button>
     </div>
     <div class="col-md-4">
         <h2>Get more libraries</h2>
@@ -35,9 +27,24 @@ $(document).ready(function(){
         <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
+        {#<h2>Microsoft Azure</h2>
         <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>#}
+        <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
     </div>
 </div>
 

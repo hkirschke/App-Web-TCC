@@ -153,8 +153,9 @@ class CreateDataFrame():
         df = pd.read_csv(url) 
 
         df = df[(df["WHO Region"] != "Global" ) & (df["Cases - cumulative total"] > 0 )]
+        return df
 
-    def DataFrame():
+    def DataFrameCasos():
         url = 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
         dfRegioes = pd.read_csv(url)
         
@@ -207,6 +208,4 @@ class CreateDataFrame():
         
         mapping = {dfFinal.columns[0]:'Name', dfFinal.columns[1]: 'FirstCase', dfFinal.columns[2]:'Jan', dfFinal.columns[3]: 'Fev',dfFinal.columns[4]:'Mar', dfFinal.columns[5]: 'Continent',dfFinal.columns[6]: 'TotalCases', dfFinal.columns[7]: 'TotalRecovered'}
         dfFinal = dfFinal.rename(columns=mapping)
-
-
-    
+        return dfFinal
