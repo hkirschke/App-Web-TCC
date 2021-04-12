@@ -47,7 +47,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests.py" />
-    <Compile Include="app\views - Copy.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
@@ -71,8 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\graph.html" />
-    <Content Include="app\templates\app\index - Copy.html" />
-    <Content Include="app\templates\app\layout - Copy.html" />
     <Content Include="libman.json" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

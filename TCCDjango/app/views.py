@@ -50,9 +50,9 @@ def about(request):
     )
  
 
-def GraficoLTBar(request):
+def GraficoLTBarMensal(request):
   assert isinstance(request, HttpRequest)
-  fig = graphLT.PlotGraphTimeLineBar()
+  fig = graphLT.PlotGraphTimeLineBarMensal()
   fig.write_html("app/graph.html")
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
@@ -64,9 +64,36 @@ def GraficoLTBar(request):
         }
     )
 
-def GraficoLTScatter(request):
+def GraficoLTScatterMensal(request):
   assert isinstance(request, HttpRequest)
-  fig = graphLT.PlotGraphTimeLineScatter()
+  fig = graphLT.PlotGraphTimeLineScatterMensal()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GraficoLTBarQuinzenal(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphLT.PlotGraphTimeLineBarQuinzenal()
+  fig.write_html("app/graph.html")
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GraficoLTScatterQuinzenal(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphLT.PlotGraphTimeLineScatterQuinzenal()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -79,7 +106,7 @@ def GraficoLTScatter(request):
 
 def GrafigoBarraMortePais(request):
   assert isinstance(request, HttpRequest)
-  fig = graphBar.PlotGrafigoBarraMortePais();
+  fig = graphBar.PlotGrafigoBarraMortePais()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -92,7 +119,7 @@ def GrafigoBarraMortePais(request):
 
 def GrafigoBarraCasosPais(request):
   assert isinstance(request, HttpRequest)
-  fig = graphBar.PlotGrafigoBarraCasosPais();
+  fig = graphBar.PlotGrafigoBarraCasosPais()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -102,24 +129,23 @@ def GrafigoBarraCasosPais(request):
             'year':datetime.now().year,
         }
     )
-
-def GrafigoBarraPorcentagemCurados(request):
-  assert isinstance(request, HttpRequest)
-  fig = graphBar.PlotGraficoBarPorcentagemCurados();
-  pl.offline.plot(fig, filename = 'app/graph.html')
-  return render(
-        request,
-        'app/index.html',
-        {
-            'title':'Home Page',
-            'year':datetime.now().year,
-        }
-    )
-
 
 def GrafigoBarraCalor(request):
   assert isinstance(request, HttpRequest)
-  fig = graphBar.PlotGraficoBarraCalor();
+  fig = graphBar.PlotGraficoBarraCalor()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GraficoBarraCalorPorcentagem(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGraficoBarraCalorPorcentagem()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -132,7 +158,7 @@ def GrafigoBarraCalor(request):
 
 def GrafigoScatterCasos(request):
   assert isinstance(request, HttpRequest)
-  fig = grapScatter.PlotGraficoScatterCasos();
+  fig = grapScatter.PlotGraficoScatterCasos()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -142,3 +168,112 @@ def GrafigoScatterCasos(request):
             'year':datetime.now().year,
         }
     )
+
+#def GrafigoScatterCasos(request):
+#  assert isinstance(request, HttpRequest)
+#  fig = grapScatter.PlotGraficoScatterCasos()
+#  pl.offline.plot(fig, filename = 'app/graph.html')
+#  return render(
+#        request,
+#        'app/index.html',
+#        {
+#            'title':'Home Page',
+#            'year':datetime.now().year,
+#        }
+#    )
+
+
+def GraficoScatterPorcentagemCasos(request):
+  assert isinstance(request, HttpRequest)
+  fig = grapScatter.PlotGraficoScatterPorcentagemCasos()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GraficoScatterPorcentagemCasosMortes(request):
+  assert isinstance(request, HttpRequest)
+  fig = grapScatter.PlotGraficoScatterPorcentagemCasosMortes()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GraficoBarPorcentagemMortos(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGraficoBarPorcentagemMortos()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GrafigoBarraPorcentagemCurados(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGraficoBarPorcentagemCurados()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GrafigoBarraPorcentagemCasos(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGraficoBarPorcentagemCasos()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+
+
+
+#def GraficoBarPorcentagemMortosRegiao(request):
+#  assert isinstance(request, HttpRequest)
+#  fig = graphBar.PlotGraficoBarPorcentagemMortosRegiao()
+#  pl.offline.plot(fig, filename = 'app/graph.html')
+#  return render(
+#        request,
+#        'app/index.html',
+#        {
+#            'title':'Home Page',
+#            'year':datetime.now().year,
+#        }
+#    )
+
+#def GrafigoBarraPorcentagemCuradosRegiao(request):
+#  assert isinstance(request, HttpRequest)
+#  fig = graphBar.PlotGraficoBarPorcentagemCuradosRegiao()
+#  pl.offline.plot(fig, filename = 'app/graph.html')
+#  return render(
+#        request,
+#        'app/index.html',
+#        {
+#            'title':'Home Page',
+#            'year':datetime.now().year,
+#        }
+#    )
+
