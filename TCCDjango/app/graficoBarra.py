@@ -86,7 +86,7 @@ class GraficoBarra():
         #pl.offline.plot(fig, filename = 'app/graph.html')
         return fig
 
-    def PlotGraficoBarPorcentagemMortos():
+    def PlotGraficoBarPorcentagemMortosCasos():
         dfFinal = BuildDf.DataFrameTotais()
         dfFinal.sort_values(['TotalDeaths'], inplace=True)
         perce = dfUtil.RetPorcentagemMortosCasos(dfFinal) #((dfFinal['TotalDeaths'] / dfFinal['TotalCases']) *100)
@@ -98,7 +98,19 @@ class GraficoBarra():
         #pl.offline.plot(fig, filename = 'app/graph.html')
         return fig
 
-    def PlotGraficoBarPorcentagemCasos(): #NÃO USAR, FICOU ESTRANHO EIXO Y
+    def PlotGraficoBarPorcentagemMortosPopulacao():
+        dfFinal = BuildDf.DataFrameTotais()
+        dfFinal.sort_values(['TotalDeaths'], inplace=True)
+        perce = dfUtil.RetPorcentagemMortesPopulacao(dfFinal) #((dfFinal['TotalDeaths'] / dfFinal['TotalCases']) *100)
+        # print(perce.to_string())
+
+        fig = px.bar(dfFinal, x='Name', y=perce, color='Continent', labels={'y':'% de Mortos','TotalCases':'Total de Casos','Name' : 'País', 'TotalDeaths' : 'Total Mortes', 'Population' : 'População'},
+             hover_data=['Name'], title='Porcentagem de Mortes x População')
+        #fig.write_html("app/graph.html")
+        #pl.offline.plot(fig, filename = 'app/graph.html')
+        return fig
+
+    def PlotGraficoBarPorcentagemCasos(): #NÃO USAR, FICOU ESTR
         dfFinal = BuildDf.DataFrameTotais()
         dfFinal.sort_values(['TotalCases'], inplace=True)
         perce = dfUtil.RetPorcentagemCasosPopulacao(dfFinal) #((dfFinal['TotalCases'] / dfFinal['Population']) *100)

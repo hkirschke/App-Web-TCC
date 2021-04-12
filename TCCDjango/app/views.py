@@ -209,9 +209,9 @@ def GraficoScatterPorcentagemCasosMortes(request):
         }
     )
 
-def GraficoBarPorcentagemMortos(request):
+def GraficoBarPorcentagemMortosCasos(request):
   assert isinstance(request, HttpRequest)
-  fig = graphBar.PlotGraficoBarPorcentagemMortos()
+  fig = graphBar.PlotGraficoBarPorcentagemMortosCasos()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -221,6 +221,20 @@ def GraficoBarPorcentagemMortos(request):
             'year':datetime.now().year,
         }
     )
+
+def GraficoBarPorcentagemMortosPopulacao(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGraficoBarPorcentagemMortosPopulacao()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
 
 def GrafigoBarraPorcentagemCurados(request):
   assert isinstance(request, HttpRequest)
