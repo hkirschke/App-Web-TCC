@@ -1,32 +1,53 @@
-{% extends "app/layout.html" %}
+﻿{% extends "app/layout.html" %}
 
 {% block content %}
 
 <div class="jumbotron">
+    <h1>
+        Gráficos em linha do tempo
+    </h1>
  <div class="row">
     <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoLTBarMensal' %}">GraficoLTBarMensal &raquo;</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoLTScatterMensal' %}">GraficoLTScatterMensal &raquo;</a></p> 
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoLTBarMensal' %}">Histórico Mensal de Mortos</a></p>
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoLTScatterMensal' %}">HistóricoMensal Casos x Mortes por Regiãoo</a></p> 
+    </div>
+ </div>
+</div>
+
+
+<div class="jumbotron">
+    <h1>
+       Relações Absolutas
+    </h1>
+ <div class="row"> 
+    <div class="col-md-4">
+        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraMortePais' %}">Mortes por País</a></p>
+        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraCasosPais' %}">Casos por País - Barra</a></p> 
     </div>
     <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraMortePais' %}">GrafigoBarraMortePais &raquo;</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraCasosPais' %}">GrafigoBarraCasosPais &raquo;</a></p> 
-    </div>
+        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoScatterCasos' %}">Casos por País - Scatterplot</a></p>
+        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraCalor' %}">Casos x Recuperados por País</a></p>  
+    </div> 
+ </div>
+</div> 
+
+
+<div class="jumbotron">
+   <h1>
+        Relações Porcentuais
+   </h1>
+ <div class="row">
     <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraPorcentagemCurados' %}">GrafigoBarraPorcentagemCurados &raquo;</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarPorcentagemMortosCasos' %}">GraficoBarPorcentagemMortosCasos &raquo;</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarPorcentagemMortosCasos' %}">GraficoBarPorcentagemMortosCasos &raquo;</a></p> 
+        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraPorcentagemCurados' %}">Curados x População</a></p>
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoScatterPorcentagemCasos' %}">Casos x População</a></p>
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarPorcentagemMortosPopulacao' %}">Mortos x População</a></p> 
     </div>
      <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoScatterPorcentagemCasos' %}">GraficoScatterPorcentagemCasos &raquo;</a></p> 
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoScatterPorcentagemCasosMortes' %}">GraficoScatterPorcentagemCasosMortes &raquo;</a></p> 
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarPorcentagemMortosCasos' %}">Mortos x Casos - Barra</a></p> 
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoScatterPorcentagemCasosMortes' %}">Mortos x Casos - Scatterplot</a></p> 
     </div> 
     <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoScatterCasos' %}">GrafigoScatterCasos &raquo;</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraCalor' %}">GrafigoBarraCalor &raquo;</a></p>  
-    </div>
-    <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarraCalorPorcentagem' %}">GraficoBarraCalorPorcentagem &raquo;</a></p> 
+        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarraCalorPorcentagem' %}">Recuperados x Mortos - População</a></p> 
     </div>
  </div>
 </div> 
