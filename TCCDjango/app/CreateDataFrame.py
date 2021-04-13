@@ -239,7 +239,6 @@ class CreateDataFrame():
         df = pd.read_csv(url) 
 
         df = df[(df["WHO Region"] != "Global" ) & (df["Cases - cumulative total"] > 0 )]
-        df = df[(df["WHO Region"] != "Global" ) & (df["Deaths - newly reported in last 24 hours"] > 100)  & (df["Cases - cumulative total"] > 0 )]
         return df
 
     def DataFrameTotais():

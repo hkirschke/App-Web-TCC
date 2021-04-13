@@ -20,8 +20,8 @@ class GraficoScatter():
 
     def PlotGraficoScatterCasos():
         dfFinal = BuildDf.DataFrameTotais()
-        fig = px.scatter(dfFinal, x="TotalCases", y="TotalRecovered", color="Name", title='Relação Casos x Recuperados',
-                 size='TotalCases', hover_data=['TotalRecovered'],
+        fig = px.scatter(dfFinal, x="TotalCases", y="TotalRecovered", color="Name", title='Relação Recuperados x Casos',
+                 size='TotalCases', hover_data=['TotalRecovered'], size_max=80,
                  labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Abr' : '1º Abril'})
         #fig.write_html("app/graph.html")
         #pl.offline.plot(fig, filename = 'app/graph.html')
@@ -30,8 +30,8 @@ class GraficoScatter():
     def PlotGraficoScatterPorcentagemCasos():
         dfFinal = BuildDf.DataFrameTotais()
         perce = dfUtil.RetPorcentagemCasosPopulacao(dfFinal)  #((dfFinal['TotalCases'] / dfFinal['Population']) *100)
-        fig = px.scatter(dfFinal, x="Population", y=perce, color="Name", title='Relação em porcentagem de infectados da população',
-                 size='TotalCases', hover_data=['TotalRecovered', 'Population'],
+        fig = px.scatter(dfFinal, x="Population", y=perce, color="Name", title='Porcentagem de infectados da população',
+                 size='TotalCases', hover_data=['TotalRecovered', 'Population'], size_max=80,
                  labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Abr' : '1º Abril', 'Continent' : 'Região', 'Population' : 'População',
                          'y' : '% de Casos'})
         #fig.write_html("app/graph.html")
@@ -45,7 +45,7 @@ class GraficoScatter():
         fig = px.scatter(dfFinal, x=perceMortes, y=perceCasos, color="Name", 
                  size='TotalCases', hover_data=['TotalRecovered', 'Population'],
                  labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Abr' : '1º Abril', 'Continent' : 'Região', 'Population' : 'População',
-                         'y' : '% de Casos', 'x' : '% de Mortos'}, title="Relação em porcentagem de Casos x Mortos dentro da população")
+                         'y' : '% de Casos', 'x' : '% de Mortos'}, title="Porcentagem de Casos x Mortos dentro da população")
         #fig.write_html("app/graph.html")
         #pl.offline.plot(fig, filename = 'app/graph.html')
         return fig

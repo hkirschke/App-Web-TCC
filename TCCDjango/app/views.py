@@ -104,9 +104,22 @@ def GraficoLTScatterQuinzenal(request):
         }
     )
 
-def GrafigoBarraMortePais(request):
+def GrafigoBarraMortePais24h(request):
   assert isinstance(request, HttpRequest)
-  fig = graphBar.PlotGrafigoBarraMortePais()
+  fig = graphBar.PlotGrafigoBarraMortePais24h()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GrafigoBarraCasosPais24h(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGrafigoBarraCasosPais24h()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,
@@ -239,6 +252,19 @@ def GraficoBarPorcentagemMortosPopulacao(request):
 def GrafigoBarraPorcentagemCurados(request):
   assert isinstance(request, HttpRequest)
   fig = graphBar.PlotGraficoBarPorcentagemCurados()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
+def GrafigoBarraPorcentagemCuradosPopulacao(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphBar.PlotGraficoBarPorcentagemCuradosPopulacao()
   pl.offline.plot(fig, filename = 'app/graph.html')
   return render(
         request,

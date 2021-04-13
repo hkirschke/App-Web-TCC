@@ -63,12 +63,17 @@
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
     <Folder Include="app\static\app\fonts\" />
+    <Folder Include="app\static\app\images\" />
     <Folder Include="app\static\app\scripts\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\app\" />
     <Folder Include="TCCDjango\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\images\favicon.ico" />
+    <Content Include="app\static\app\images\logo-puc-minas.png" />
+    <Content Include="app\static\app\images\logoPuc.png" />
+    <Content Include="app\static\app\images\logoPucTransparente.png" />
     <Content Include="app\templates\app\graph.html" />
     <Content Include="libman.json" />
     <Content Include="requirements.txt" />

@@ -22,8 +22,8 @@ class GraficoLT():
        #dfFinal.sort_values(['Mortos'], inplace=True)
         
        fig = px.bar(dfFinal, x="Regiao", y="Mortos", color="Regiao",
-          animation_frame="Mes", animation_group="País", range_y=[0,1200000],
-            hover_data=['País', 'Casos', 'Recuperado'],title='Timeline Mortes por Região')
+          animation_frame="Mes", animation_group="País", range_y=[0,"Mortos"],
+            hover_data=['País', 'Casos', 'Recuperado'],title='Linha de tempo Mortes')
        #fig.write_html("app/graph.html")
        #pl.offline.plot(fig, filename = 'app/graph.html')
        #pl.offline.plot(fig, include_plotlyjs=False, output_type='div')
@@ -33,7 +33,7 @@ class GraficoLT():
         dfFinal = BuildDf.DataFrameMensal()
         fig = px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
                size="Casos", color="Regiao", hover_name="País",
-               log_x=True, size_max=80, range_x=[1000,1000000], range_y=[10000,35000000], title='Timeline Casos x Mortes por Região')
+               log_x=True, size_max=80, range_x=[1000,"Mortos"], range_y=[10000,"Casos"], title='Linha de tempo Casos x Mortes')
         return fig
 
     def PlotGraphTimeLineBarQuinzenal():

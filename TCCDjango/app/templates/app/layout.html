@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Django Application</title>
+    <title>{{ title }} - Dashboard COVID-19</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <script>
         //$(".geraGrafico").click(function(e) {
         //e.preventDefault();
@@ -50,29 +51,45 @@
     //$('.clickMe').click(function(){
     //    alert(this.id);
     //});
-        //function Alert() {
-        //   alert('Gráfico sendo gerado');
-        //}
+
+    function AlertGrafico() {
+           alert('Gráfico sendo gerado,por favor aguarde...');
+    }
 </script>
+    <style>
+    .backGroundCinzento {
+        background-color: #f7f7f7;
+    }
+    .btn-lg-minWidth {
+        min-width: 300px;
+    }
+   .card-group>.card { 
+        margin-bottom: 25px; 
+    }
+  </style>
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container"> 
-        </div>
-    </div>
+    <nav class="fixed-top navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand"  >
+       <img src="../../static/app/images/logo-puc-minas.png" width="125" height="100"/> 
+    </a>
+     <h1 style="color: #fff">
+       Dashboard de Gráficos COVID-19
+    </h1>
+  </div>
+</nav> 
 
     <div class="container body-content">
-{% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
         <hr/>
         <footer>
             <p>&copy; {{ year }} - My Django Application</p>
         </footer>
     </div>
-
-    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
-    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
-    <script src="{% static 'app/scripts/respond.js' %}"></script>
+     
 {% block scripts %}{% endblock %}
 
 </body>

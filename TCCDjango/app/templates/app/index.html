@@ -1,55 +1,95 @@
 ﻿{% extends "app/layout.html" %}
 
 {% block content %}
+ 
+<div class="card-group">
 
-<div class="jumbotron">
-    <h1>
-        Gráficos em linha do tempo
-    </h1>
- <div class="row">
-    <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoLTBarMensal' %}">Histórico Mensal de Mortos</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoLTScatterMensal' %}">HistóricoMensal Casos x Mortes por Regiãoo</a></p> 
-    </div>
- </div>
+<div class="card">
+  <div class="card-header">
+    Histórico Mensal
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Evolução da doença</h5>
+    <p class="card-text">Gráficos que trazem o histórico de evolução da doença entre os países durante os anos de 2020 e 2021. Podemos assim acompanhar a que ritmo a doença se propaga e sua mortalidade</p> 
+    <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Explorar
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="{% url 'GraficoLTBarMensal' %}"  onclick="AlertGrafico()">Mortos</a></li>
+    <li><a class="dropdown-item" href="{% url 'GraficoLTScatterMensal' %}" onclick="AlertGrafico()">Casos x Mortes por Região</a></li> 
+  </ul>
+</div>
+  </div>
 </div>
 
+<div class="card">
+  <div class="card-header">
+    Relações Absolutas
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Dados Absolutos de Países</h5>
+    <p class="card-text">Gráficos que trazem dados absolutos da doença nos países, número relacionados a mortes causadas, casos e recuperados</p>
+     <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+    Explorar
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+    <li><a class="dropdown-item" href="{% url 'GrafigoBarraMortePais24h' %}" onclick="AlertGrafico()">Mortes Ultimas 24 horas</a></li>
+    <li><a class="dropdown-item" href="{% url 'GrafigoBarraCasosPais24h' %}" onclick="AlertGrafico()">Casos Ultimas 24 horas</a></li>
+    <li><a class="dropdown-item" href="{% url 'GrafigoBarraCasosPais' %}" onclick="AlertGrafico()">Casos Totais</a></li>
+    <li><a class="dropdown-item" href="{% url 'GrafigoScatterCasos' %}" onclick="AlertGrafico()">Casos x Recuperados - Scatterplot</a></li> 
+    <li><a class="dropdown-item" href="{% url 'GrafigoBarraCalor' %}" onclick="AlertGrafico()">Casos x Recuperados</a></li> 
+  </ul>
+</div>
+  </div>
+</div>
+    
+ </div> 
 
-<div class="jumbotron">
-    <h1>
-       Relações Absolutas
-    </h1>
- <div class="row"> 
-    <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraMortePais' %}">Mortes por País</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraCasosPais' %}">Casos por País - Barra</a></p> 
-    </div>
-    <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoScatterCasos' %}">Casos por País - Scatterplot</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraCalor' %}">Casos x Recuperados por País</a></p>  
-    </div> 
- </div>
+
+<div class="card-group">
+
+<div class="card">
+  <div class="card-header">
+    Relações Percentuais
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Dados Percentuais com base na população da doença</h5>
+    <p class="card-text">Gráficos de dados em percentuais, referente a taxas de infecção, mortalidade e recuperados referente aos números da população de países impactados pelas COVID-19</p> 
+    <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+    Explorar
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+    <li><a class="dropdown-item" href="{% url 'GrafigoBarraPorcentagemCuradosPopulacao' %}" onclick="AlertGrafico()">Curados x População</a></li>
+    <li><a class="dropdown-item" href="{% url 'GraficoScatterPorcentagemCasos' %}" onclick="AlertGrafico()">Casos x População</a></li>
+    <li><a class="dropdown-item" href="{% url 'GraficoBarPorcentagemMortosPopulacao' %}" onclick="AlertGrafico()">Mortos x População</a></li>
+    <li><a class="dropdown-item" href="{% url 'GraficoBarraCalorPorcentagem' %}" onclick="AlertGrafico()">Recuperados x Mortos - População</a></li>  
+  </ul>
+</div>
+  </div>
 </div> 
 
-
-<div class="jumbotron">
-   <h1>
-        Relações Porcentuais
-   </h1>
- <div class="row">
-    <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GrafigoBarraPorcentagemCurados' %}">Curados x População</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoScatterPorcentagemCasos' %}">Casos x População</a></p>
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarPorcentagemMortosPopulacao' %}">Mortos x População</a></p> 
-    </div>
-     <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarPorcentagemMortosCasos' %}">Mortos x Casos - Barra</a></p> 
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoScatterPorcentagemCasosMortes' %}">Mortos x Casos - Scatterplot</a></p> 
-    </div> 
-    <div class="col-md-4">
-        <p><a class="btn btn-large btn-primary" href="{% url 'GraficoBarraCalorPorcentagem' %}">Recuperados x Mortos - População</a></p> 
-    </div>
- </div>
-</div> 
+<div class="card">
+  <div class="card-header">
+    Relações Percentuais
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Dados Percentuais com base em casos da doença</h5>
+    <p class="card-text">Gráficos de dados em percentuais, referente a taxas de infecção, mortalidade e recuperados referente aos números de casos notificados de países impactados pelas COVID-19</p> 
+    <div class="dropdown"> 
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
+     Explorar
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+    <li><a class="dropdown-item" href="{% url 'GraficoBarPorcentagemMortosCasos' %}" onclick="AlertGrafico()">Mortos x Casos - Barra</a></li>
+    <li><a class="dropdown-item" href="{% url 'GrafigoBarraPorcentagemCurados' %}" onclick="AlertGrafico()">Curados x Casos</a></li>
+    <li><a class="dropdown-item" href="{% url 'GraficoScatterPorcentagemCasosMortes' %}" onclick="AlertGrafico()">Mortos x Casos - Scatterplot</a></li> 
+  </ul>
+</div>
+  </div>
+</div>  
+ </div> 
 
 {% endblock %}
