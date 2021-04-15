@@ -121,6 +121,14 @@ class CreateDataFrame():
       dfTimeSeriesCasesSomado = dfUtil.SumRows(dfTimeSeriesCases)
       dfTimeSeriesRecoverSomado = dfUtil.SumRows(dfTimeSeriesRecover) 
       dfTimeSeriesDeathSomado = dfUtil.SumRows(dfTimeSeriesDeath) 
+
+      # Resetando index
+      dfRegioesNew.reset_index(drop=True)
+      dfWorldMetersNew.reset_index(drop=True)
+      dfTimeSeriesCasesSomado.reset_index(drop=True)
+      dfTimeSeriesRecoverSomado.reset_index(drop=True)
+      dfTimeSeriesDeathSomado.reset_index(drop=True)
+      dfWorldMetersNew.reset_index(drop=True)
       
       # Merge dataframe
       dfFinalCases = pd.merge(dfTimeSeriesCasesSomado, dfRegioesNew, on="Name") 
@@ -159,6 +167,13 @@ class CreateDataFrame():
         df = pd.read_csv(url) 
 
         df = df[(df["WHO Region"] != "Global" ) & (df["Cases - cumulative total"] > 0 )]
+        df.columns = [column.replace(" ", "_").replace(",", "_").replace("-","").replace("__","_") for column in df.columns]
+        df.query('Name != "Global" and Name != "World" and Cases_cumulative_total > 0 and WHO_Region != "NaN"',  inplace=True)
+        df.rename(columns={'WHO_Region':'Regiao'}, inplace=True) 
+        df.rename(columns={'Deaths_newly_reported_in_last_24_hours':'Mortes'}, inplace=True)
+        df.rename(columns={'Cases_newly_reported_in_last_24_hours':'Casos'}, inplace=True)
+        #df.rename(columns={'Name':'País'}, inplace=True)
+        df.reset_index(drop=True)
         return df
 
     def DataFrameTotais():
@@ -215,6 +230,11 @@ class CreateDataFrame():
         dfWiki.rename(columns={'Feb 1': 'Fev'}, inplace=True) 
         dfWiki.rename(columns={'Mar 1': 'Mar'}, inplace=True)
         dfWiki.rename(columns={'Apr 1': 'Abr'}, inplace=True)
+
+        # Resetando index
+        dfWiki.reset_index(drop=True)
+        dfRegioesNew.reset_index(drop=True) 
+        dfWorldMetersNew.reset_index(drop=True)
         
         # Merge dataframes
         dfPre = pd.merge(dfWiki, dfRegioesNew, on="Name")
