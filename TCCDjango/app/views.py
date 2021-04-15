@@ -77,6 +77,19 @@ def GraficoLTScatterMensal(request):
         }
     )
 
+def GraficoLTScatterMensalPorcentagemCasosPopulacao(request):
+  assert isinstance(request, HttpRequest)
+  fig = graphLT.PlotGraphTimeLineScatterMensalPorcentagemCasosPopulacao()
+  pl.offline.plot(fig, filename = 'app/graph.html')
+  return render(
+        request,
+        'app/index.html',
+        {
+            'title':'Home Page',
+            'year':datetime.now().year,
+        }
+    )
+
 def GraficoLTBarQuinzenal(request):
   assert isinstance(request, HttpRequest)
   fig = graphLT.PlotGraphTimeLineBarQuinzenal()

@@ -63,7 +63,7 @@ class DataFrameUtil():
                  DataFrame.columns[6]: 'Jun', DataFrame.columns[7]: 'Jul', DataFrame.columns[8]: 'Ago', 
                  DataFrame.columns[9]: 'Set', DataFrame.columns[10]: 'Out', DataFrame.columns[11]: 'Nov', 
                  DataFrame.columns[12]: 'Dez',DataFrame.columns[13]: 'Jan 21',DataFrame.columns[14]: 'Fev 21', 
-                 DataFrame.columns[15]: 'Mar 21'}
+                 DataFrame.columns[15]: 'Mar 21', DataFrame.columns[16]: 'Abr 21'}
          return mapping
 
     def SelectColumnsQuinzena():
@@ -74,9 +74,14 @@ class DataFrameUtil():
          return obj
 
     def SelectColumnsMensal():
+        #current_day = datetime.date.today()
+        #ano = datetime.strptime(current_day, '%m/%d/%y').year #.dt.year #%m/%d/%Y,
+        #mes = datetime.strptime(current_day, '%m/%d/%y').month
+        #dia = datetime.strptime(current_day, '%m/%d/%y').day
+        #current_dayFormat = str(dia) + "/" + str(mes) + "/" + str(ano)
         obj = ["Name", "1/31/20","2/29/20","3/31/20","4/30/20", "5/31/20",
                                             "6/30/20", "7/31/20", "8/31/20", "9/30/20", "10/31/20","11/30/20","12/31/20",
-                                            "1/31/21", "2/28/21", "3/31/21"]
+                                            "1/31/21", "2/28/21", "3/31/21", "4/10/21"]
 
         return obj
 
@@ -88,6 +93,12 @@ class DataFrameUtil():
 
     def RetPorcentagemCasosPopulacao(Dataframe):
      return round((Dataframe['TotalCases'] / Dataframe['Population']) *100,2)
+
+    def RetPorcentagemCasosPopulacaoMensal(Dataframe):
+     return round((Dataframe['Casos'] / Dataframe['Populacao']) *100,2)
+
+    def RetPorcentagemMortosPopulacaoMensal(Dataframe):
+     return round((Dataframe['Mortos'] / Dataframe['Populacao']) *100,2)
 
     def RetPorcentagemMortesPopulacao(Dataframe):
         return round((Dataframe['TotalDeaths'] / Dataframe['Population']) *100,2)

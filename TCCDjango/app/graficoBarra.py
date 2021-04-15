@@ -87,9 +87,8 @@ class GraficoBarra():
         perceCasos = dfUtil.RetPorcentagemCasosPopulacao(dfFinal) #((dfFinal['TotalCases'] / dfFinal['Population']) *100)
         perceMortes = dfUtil.RetPorcentagemMortesPopulacao(dfFinal) #((dfFinal['TotalDeaths'] / dfFinal['Population']) *100)
         perceCurados = dfUtil.RetPorcentagemRecuperadosPopulacao(dfFinal) #((dfFinal['TotalRecovered'] / dfFinal['Population']) *100)
-        dfFinal
 
-        fig = px.bar(dfFinal, x='Name', y='TotalRecovered', title='Porcentagem de Curados x Mortos',
+        fig = px.bar(dfFinal, x='Name', y=perceCurados, title='Porcentagem de Curados x Mortos',
              hover_data=['TotalCases', 'TotalRecovered'], color=perceMortes,
              labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Abr' : '1º Abril', 'Continent' : 'Região',
                     'Population' : 'População', 'color' : '% Mortos'})

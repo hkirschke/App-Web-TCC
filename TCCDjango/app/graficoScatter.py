@@ -43,9 +43,9 @@ class GraficoScatter():
         perceCasos = dfUtil.RetPorcentagemCasosPopulacao(dfFinal)  #((dfFinal['TotalCases'] / dfFinal['Population']) *100)
         perceMortes = dfUtil.RetPorcentagemMortesPopulacao(dfFinal)  #((dfFinal['TotalDeaths'] / dfFinal['Population']) *100)
         fig = px.scatter(dfFinal, x=perceMortes, y=perceCasos, color="Name", 
-                 size='TotalCases', hover_data=['TotalRecovered', 'Population'],
+                 size='TotalCases', hover_data=['TotalRecovered', 'Population'], size_max=80,
                  labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 'Abr' : '1º Abril', 'Continent' : 'Região', 'Population' : 'População',
-                         'y' : '% de Casos', 'x' : '% de Mortos'}, title="Porcentagem de Casos x Mortos dentro da população")
+                         'y' : '% de Casos', 'x' : '% de Mortos'}, title="Porcentagem de Casos x Mortos da população")
         #fig.write_html("app/graph.html")
         #pl.offline.plot(fig, filename = 'app/graph.html')
         return fig

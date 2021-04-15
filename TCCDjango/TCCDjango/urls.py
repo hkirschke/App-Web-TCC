@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('GraficoLTBarMensal/', views.GraficoLTBarMensal, name='GraficoLTBarMensal'),
     path('GraficoLTScatterMensal/', views.GraficoLTScatterMensal, name='GraficoLTScatterMensal'),
+    path('GraficoLTScatterMensalPorcentagemCasosPopulacao/', views.GraficoLTScatterMensalPorcentagemCasosPopulacao, name='GraficoLTScatterMensalPorcentagemCasosPopulacao'),
     path('GraficoLTBarQuinzenal/', views.GraficoLTBarQuinzenal, name='GraficoLTBarQuinzenal'),
     path('GraficoLTScatterQuinzenal/', views.GraficoLTScatterQuinzenal, name='GraficoLTScatterQuinzenal'), 
     path('GrafigoBarraMortePais24h/', views.GrafigoBarraMortePais24h, name='GrafigoBarraMortePais24h'), 

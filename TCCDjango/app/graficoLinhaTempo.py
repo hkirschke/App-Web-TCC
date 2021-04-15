@@ -4,6 +4,7 @@ import plotly.express as px
 #import plotly.io as pio
 import plotly as pl 
 from .CreateDataFrame import CreateDataFrame as BuildDf
+from .DataFrameUtil import DataFrameUtil as dfUtil
 
 
 class GraficoLT(): 
@@ -19,8 +20,6 @@ class GraficoLT():
 
     def PlotGraphTimeLineBarMensal():
        dfFinal = BuildDf.DataFrameMensal()
-       #dfFinal.sort_values(['Mortos'], inplace=True)
-        
        fig = px.bar(dfFinal, x="Regiao", y="Mortos", color="Regiao",
           animation_frame="Mes", animation_group="País", range_y=[0,"Mortos"],
             hover_data=['País', 'Casos', 'Recuperado'],title='Linha de tempo Mortes')
@@ -33,7 +32,18 @@ class GraficoLT():
         dfFinal = BuildDf.DataFrameMensal()
         fig = px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
                size="Casos", color="Regiao", hover_name="País",
-               log_x=True, size_max=80, range_x=[1000,"Mortos"], range_y=[10000,"Casos"], title='Linha de tempo Casos x Mortes')
+               log_x=True, size_max=80, title='Linha de tempo Casos x Mortes')
+        return fig
+
+    def PlotGraphTimeLineScatterMensalPorcentagemCasosPopulacao():
+        dfFinal = BuildDf.DataFrameMensal()
+        perceCasos = dfUtil.RetPorcentagemCasosPopulacaoMensal(dfFinal)
+        dfFinal['Casos'] = perceCasos
+        perceMortos = dfUtil.RetPorcentagemMortosPopulacaoMensal(dfFinal)
+        dfFinal['Mortos'] =perceMortos
+        fig = px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
+               size="Casos", color="Regiao", hover_name="País", size_max=40 , range_x=[0.01,0.3], range_y=[1,18]
+               , title='Linha de tempo Casos x Mortes')
         return fig
 
     def PlotGraphTimeLineBarQuinzenal():
