@@ -51,7 +51,7 @@ class GraficoBarra():
         dfFinal.sort_values(['TotalRecovered'], inplace=True)
 
         fig = px.bar(dfFinal, x='Name', y="TotalRecovered", title='Porcentagem de Curados x Mortos',
-             hover_data=['TotalCases', 'TotalRecovered'], color="TotalRecovered",
+             hover_data=['TotalCases', 'TotalRecovered'], color="TotalDeaths",
              labels={'TotalCases':'Total de Casos', 'Name' : 'País', 'TotalRecovered' : 'Total Recuperado', 
                      'TotalDeaths' : 'Total Mortes', 'Abr' : '1º Abril', 'Continent' : 'Região',
                     'Population' : 'População', 'color' : '% Mortos'})
