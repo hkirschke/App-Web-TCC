@@ -8,7 +8,8 @@ import requests
 from .DataFrameUtil import DataFrameUtil as dfUtil
 
 
-class CreateDataFrame(): 
+class CreateDataFrame():
+    """Classe de serviços para a criação de dataframes utilizados para a construção dos gráficos"""
     def __init__(self):
         self.dfTimeSeriesCases = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
         
@@ -23,6 +24,7 @@ class CreateDataFrame():
       pd.options.display.float_format = '{:.0f}'.format # Sem Virgula 
     
       # Motando Dataframes
+      # Coletando dados através de arquivos CSV, disponibilizados online.
       url = 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
       dfRegioes = pd.read_csv(url)
       
@@ -31,7 +33,8 @@ class CreateDataFrame():
       dfTimeSeriesRecover = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv')
       
       dfTimeSeriesDeath = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv')
-
+      
+      # Coletando dados através de web scrapping
       html_source = requests.get("https://www.worldometers.info/coronavirus/").text
       html_source = re.sub(r'<.*?>', lambda g: g.group(0).upper(), html_source)
         
@@ -39,10 +42,12 @@ class CreateDataFrame():
       dfWorldMeters = table_MN2[0] 
       dfWorldMeters.columns = [column.replace(" ", "_").replace(",", "_").replace("-","").replace("__","_") for column in dfWorldMeters.columns]
         
+      # Renomeando colunas, padronização
       dfTimeSeriesCases.rename(columns={'Country/Region':'Name'}, inplace=True) 
       dfTimeSeriesRecover.rename(columns={'Country/Region':'Name'}, inplace=True) 
       dfTimeSeriesDeath.rename(columns={'Country/Region':'Name'}, inplace=True) 
       
+      # Normalização de nome de países
       dfTimeSeriesCases.loc[249,'Name'] = "United States of America"
       dfTimeSeriesRecover.loc[249,'Name'] = "United States of America"
       dfTimeSeriesDeath.loc[249,'Name'] = "United States of America"
@@ -53,8 +58,7 @@ class CreateDataFrame():
       
       # Filtrando Dataframes 
       dfRegioes.columns =[column.replace(" ", "_").replace("-","") for column in dfRegioes.columns]
-      dfRegioes.query('Name != "Global" and Name != "World" and Cases__cumulative_total > 0 and WHO_Region != "NaN"',  inplace=True)
-      #dfRegioes.loc[0,'Name'] = 'World'
+      dfRegioes.query('Name != "Global" and Name != "World" and Cases__cumulative_total > 0 and WHO_Region != "NaN"',  inplace=True) 
       dfWorldMeters.query('Country_Other != "Total: " and  Country_Other != "World" and  ' +
                       ' Country_Other != "North America" and Country_Other != "South America" and Country_Other != "Asia" and Country_Other != "Europe" ' +
                     'and Country_Other != "Africa" and Country_Other != "Oceania" and Country_Other != "Total:" and Country_Other != "NaN" and Population != "nan" and Population != "NaN"',  inplace=True)
@@ -100,7 +104,7 @@ class CreateDataFrame():
       dfTimeSeriesDeath = dfUtil.RenameColsMesAno(dfTimeSeriesDeath)
       
       
-      # # Renomeando colunas
+      # Renomeando colunas, padronização para merge final dos dataframes
       dfRegioesNew.rename(columns={'WHO_Region':'Regiao'}, inplace=True) 
       dfWorldMetersNew.rename(columns={'Country_Other': 'Name'}, inplace=True)
       dfWorldMetersNew.rename(columns={'Population': 'Populacao'}, inplace=True)
@@ -117,12 +121,12 @@ class CreateDataFrame():
       mapping = dfUtil.CreateMappingMensal(dfTimeSeriesDeath)
       dfTimeSeriesDeath = dfAux.rename(columns=mapping)
       
-      
+      #Somando resultados montados através das linhas do Dataframe
       dfTimeSeriesCasesSomado = dfUtil.SumRows(dfTimeSeriesCases)
       dfTimeSeriesRecoverSomado = dfUtil.SumRows(dfTimeSeriesRecover) 
       dfTimeSeriesDeathSomado = dfUtil.SumRows(dfTimeSeriesDeath) 
 
-      # Resetando index
+      # Resetando index dos dataframes
       dfRegioesNew.reset_index(drop=True)
       dfWorldMetersNew.reset_index(drop=True)
       dfTimeSeriesCasesSomado.reset_index(drop=True)
@@ -144,13 +148,11 @@ class CreateDataFrame():
       
       d = {'Name': [], 'Mes': [],'Casos': [], 'Recuperado': [], 'Mortos': []}
       DataFrameTimeline = pd.DataFrame(data=d)
-      
-      # for index, row in dfFinalRecover.query('Name == "United States of America"').iterrows():    #PARA CADA PAÍS
+       
       for index, row in dfFinalRecover.iterrows():    #PARA CADA PAÍS
-        for mes in listMonth: #VOU PERCORRER POR MÊS
+        for mes in listMonth: #PERCORRER POR MÊS
           DataFrameTimeline = DataFrameTimeline.append({'Name': row['Name'], 'Mes': mes, 'Casos':dfFinalCases.loc[index,mes], 
-                                                  'Recuperado': dfFinalRecover.loc[index,mes], 'Mortos' : dfFinalDeath.loc[index,mes]}, ignore_index = True) 
-          #'Populacao': dfWorldMetersNew.iloc[index,1]
+                                                  'Recuperado': dfFinalRecover.loc[index,mes], 'Mortos' : dfFinalDeath.loc[index,mes]}, ignore_index = True)
 
       dfPre = pd.merge(DataFrameTimeline, dfRegioesNew, on="Name")
       dfFinal = pd.merge(dfPre, dfWorldMetersNew, on="Name") 
@@ -160,19 +162,24 @@ class CreateDataFrame():
       return dfFinal
 
     def DataFrameLast24h():
+        # Motando Dataframe
+        # Coletando dados através de arquivos CSV, disponibilizados online.
         pd.options.display.float_format = '{:.0f}'.format
  
         url = 'https://covid19.who.int/WHO-COVID-19-global-table-data.csv'
 
         df = pd.read_csv(url) 
-
+        # Filtros dos dados
         df = df[(df["WHO Region"] != "Global" ) & (df["Cases - cumulative total"] > 0 )]
+        # Padronização nome das colunas
         df.columns = [column.replace(" ", "_").replace(",", "_").replace("-","").replace("__","_") for column in df.columns]
+        # Filtros dos dados
         df.query('Name != "Global" and Name != "World" and Cases_cumulative_total > 0 and WHO_Region != "NaN"',  inplace=True)
+        # Alteração dos nomes para dataframe final utilizado
         df.rename(columns={'WHO_Region':'Regiao'}, inplace=True) 
         df.rename(columns={'Deaths_newly_reported_in_last_24_hours':'Mortes'}, inplace=True)
         df.rename(columns={'Cases_newly_reported_in_last_24_hours':'Casos'}, inplace=True)
-        #df.rename(columns={'Name':'País'}, inplace=True)
+        # Reset dos index, para casos que será feita alguma ordenação
         df.reset_index(drop=True)
         return df
 
@@ -198,9 +205,8 @@ class CreateDataFrame():
         dfWorldMeters.query('Country_Other != "Total: " and  Country_Other != "World" and  ' +
                       ' Country_Other != "North America" and Country_Other != "South America" and Country_Other != "Asia" and Country_Other != "Europe" ' +
                     'and Country_Other != "Africa" and Country_Other != "Oceania" and Country_Other != "Total:" and Country_Other != "NaN" and Population != "nan" ',  inplace=True)
-
-
-      
+        
+        # Normalização de nome de países
         dfWorldMeters.loc[8, 'Country_Other']= "United States of America"
         dfWorldMeters.loc[13, 'Country_Other']= "United Kingdom"
         dfRegioes.loc[6, 'Name'] ="United Kingdom"
@@ -231,7 +237,7 @@ class CreateDataFrame():
         dfWiki.rename(columns={'Mar 1': 'Mar'}, inplace=True)
         dfWiki.rename(columns={'Apr 1': 'Abr'}, inplace=True)
 
-        # Resetando index
+        # Resetando index, para casos que será feita alguma ordenação
         dfWiki.reset_index(drop=True)
         dfRegioesNew.reset_index(drop=True) 
         dfWorldMetersNew.reset_index(drop=True)

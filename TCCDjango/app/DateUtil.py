@@ -2,7 +2,7 @@ from dateutil.parser import parse
 from datetime import datetime
 
 class DateUtil():
-    """description of class"""
+    """Classe para funções para manipular e tratar dados relacionados a data"""
     def isDate(string, fuzzy=False): 
         try: 
             parse(string, fuzzy=fuzzy)

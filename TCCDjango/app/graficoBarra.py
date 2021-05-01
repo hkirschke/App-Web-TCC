@@ -43,9 +43,9 @@ class GraficoBarra():
     def PlotGraficoBarraCalorPorcentagem():
         dfFinal = BuildDf.DataFrameTotais()
         dfFinal.query('TotalCases > 1000000 and TotalRecovered > 0' , inplace=True)
-        perceCasos = dfUtil.RetPorcentagemCasosPopulacao(dfFinal) #((dfFinal['TotalCases'] / dfFinal['Population']) *100)
-        perceMortes = dfUtil.RetPorcentagemMortesPopulacao(dfFinal) #((dfFinal['TotalDeaths'] / dfFinal['Population']) *100)
-        perceCurados = dfUtil.RetPorcentagemRecuperadosPopulacao(dfFinal) #((dfFinal['TotalRecovered'] / dfFinal['Population']) *100)
+        perceCasos = dfUtil.RetPorcentagemCasosPopulacao(dfFinal)  
+        perceMortes = dfUtil.RetPorcentagemMortesPopulacao(dfFinal) 
+        perceCurados = dfUtil.RetPorcentagemRecuperadosPopulacao(dfFinal) 
         dfFinal['TotalRecovered'] = perceCurados
         dfFinal['TotalDeaths'] = perceMortes
         dfFinal.sort_values(['TotalRecovered'], inplace=True)
