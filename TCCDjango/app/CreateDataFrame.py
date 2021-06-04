@@ -134,11 +134,11 @@ class CreateDataFrame():
       dfTimeSeriesDeathSomado.reset_index(drop=True)
        
 
-      #'dfTimeSeriesCasesSomado.sort_values(['Name'], inplace=True)
-      #dfTimeSeriesRecoverSomado.sort_values(['Name'], inplace=True)
-      #dfTimeSeriesDeathSomado.sort_values(['Name'], inplace=True)
-      #dfRegioesNew.sort_values(['Name'], inplace=True)
-      #dfWorldMetersNew.sort_values(['Name'], inplace=True) 
+      dfTimeSeriesCasesSomado.sort_values(['Name'], inplace=True)
+      dfTimeSeriesRecoverSomado.sort_values(['Name'], inplace=True)
+      dfTimeSeriesDeathSomado.sort_values(['Name'], inplace=True)
+      dfRegioesNew.sort_values(['Name'], inplace=True)
+      dfWorldMetersNew.sort_values(['Name'], inplace=True) 
       
       # Merge dataframe
       dfFinalCases = pd.merge(dfTimeSeriesCasesSomado, dfRegioesNew, on="Name") 

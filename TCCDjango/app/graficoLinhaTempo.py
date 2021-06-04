@@ -8,8 +8,9 @@ from .DataFrameUtil import DataFrameUtil as dfUtil
 class GraficoLT(): 
     def PlotGraphTimeLineBarMensal():
        dfFinal = BuildDf.DataFrameMensal()
+       dfFinal.sort_values(['Mortos'], inplace=True)
        fig = px.bar(dfFinal, x="Regiao", y="Mortos", color="Regiao",
-          animation_frame="Mes", animation_group="País", range_y=[0,"Mortos"],
+          animation_frame="Mes", animation_group="País", range_y=[0,1000000],
             hover_data=['País', 'Casos', 'Recuperado'],title='Linha de tempo Mortes')
        return fig
 
