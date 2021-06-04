@@ -156,16 +156,20 @@ class CreateDataFrame():
       DataFrameRecover = pd.DataFrame(data=d)
       
       # print(dfFinalRecover.to_string())
-      
+      index = 1
       # # for index, row in dfFinalRecover.query('Name == "United States of America"').iterrows():    #PARA CADA PAÍS
-      for index, row in dfFinalRecover.iterrows():    #PARA CADA PAÍS
+      for row in dfFinalRecover.itertuples():    #PARA CADA PAÍS
+        index = 1
         for mes in listMonth: #PERCORRER POR MÊS
-          DataFrameRecover = DataFrameRecover.append({'Name': dfFinalRecover.loc[index,'Name']
+            index +=1
+            if index < len(dfFinalRecover.columns):
+                DataFrameRecover = DataFrameRecover.append({'Name': row[1]
                                                         ,'Mes': mes
                                                         #,'Casos':dfFinalCases.loc[index,mes]
-                                                        ,'Recuperado': dfFinalRecover.loc[index,mes]
+                                                        ,'Recuperado': row[index]
                                                         #,'Mortos' : dfFinalDeath.loc[index,mes]
                                                         }, ignore_index = True) 
+          
           
       
       d = {'Name': []
@@ -173,13 +177,18 @@ class CreateDataFrame():
            ,'Casos': []
            }
       DataFrameCasos = pd.DataFrame(data=d)
-      
-      for index, row in dfFinalCases.iterrows():    #PARA CADA PAÍS
+      index = 1
+
+      for row in dfFinalCases.itertuples():    #PARA CADA PAÍS
+        index = 1
         for mes in listMonth: #PERCORRER POR MÊS
-          DataFrameCasos = DataFrameCasos.append({'Name': dfFinalCases.loc[index,'Name']
+            index += 1
+            if index < len(dfFinalCases.columns): 
+               DataFrameCasos = DataFrameCasos.append({'Name': row[1]
                                                         ,'Mes': mes
-                                                        ,'Casos':dfFinalCases.loc[index,mes]
+                                                        ,'Casos': row[index]
                                                         }, ignore_index = True)
+          
           
       
       d = {'Name': []
@@ -187,13 +196,18 @@ class CreateDataFrame():
            ,'Mortos': []
            }
       DataFrameDeath = pd.DataFrame(data=d)
-      
-      for index, row in dfFinalDeath.iterrows():    #PARA CADA PAÍS
+      index = 0
+
+      for row in dfFinalDeath.itertuples():    #PARA CADA PAÍS
+        index = 1
         for mes in listMonth: #PERCORRER POR MÊS
-          DataFrameDeath = DataFrameDeath.append({'Name': dfFinalDeath.loc[index,'Name']
+            index += 1
+            if index < len(dfFinalDeath.columns):
+                DataFrameDeath = DataFrameDeath.append({'Name': row[1]
                                                         ,'Mes': mes
-                                                        ,'Mortos':dfFinalDeath.loc[index,mes]
+                                                        ,'Mortos':row[index]
                                                         }, ignore_index = True)
+          
       
       dtTimeline = pd.merge(DataFrameCasos, DataFrameDeath,  on=['Name','Mes'])
       DataFrameTimeline = pd.merge(dtTimeline, DataFrameRecover,  on=['Name','Mes']) 
