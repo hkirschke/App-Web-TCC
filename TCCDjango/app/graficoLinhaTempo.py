@@ -16,8 +16,11 @@ class GraficoLT():
     def PlotGraphTimeLineScatterMensal():
         dfFinal = BuildDf.DataFrameMensal()
         fig = px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
-               size="Casos", color="Regiao", hover_name="País",
-               log_x=True, size_max=100, title='Linha de tempo Casos x Mortes')
+               size="Casos",
+               range_y=[0,20000000],
+               range_x=[0,500000],
+               color="Regiao", hover_name="País", 
+               size_max=40, title='Linha de tempo Casos x Mortes')
         return fig
 
     def PlotGraphTimeLineScatterMensalPorcentagemCasosPopulacao():
@@ -27,6 +30,10 @@ class GraficoLT():
         perceMortos = dfUtil.RetPorcentagemMortosPopulacaoMensal(dfFinal)
         dfFinal['Mortos'] =perceMortos
         fig = px.scatter(dfFinal, x="Mortos", y="Casos", animation_frame="Mes", animation_group="País",
-               size="Casos", color="Regiao", hover_name="País", size_max=40 
-               , title='Linha de tempo Casos x Mortes')
+               size="Casos",
+               range_y=[0,16],
+               range_x=[0,0.4],
+               color="Regiao", hover_name="País", size_max=40
+               , title='Linha de tempo Casos x Mortes - População'
+               )
         return fig
